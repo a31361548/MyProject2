@@ -66,7 +66,7 @@
 <VMain>
   <RouterView></RouterView>
 </VMain>
-<!-- <VFooter color="rgba(0,0,0,0.9)"></VFooter> -->
+<!-- <VFooter color="rgba(0,0,0,0.9)" height="0"></VFooter> -->
 </template>
 
 <script setup>
@@ -85,7 +85,6 @@ const dialog = ref(false)
 const navItems = [
   { to: '/login', text: '登入', icon: 'mdi-login' }
 ]
-
 
 const menu = [
   { to: '/menu1', text: '酒鬼專區', list: [{ to: '/', text: '經典調酒' }, { to: '/', text: '超商酒單' }, { to: '/', text: '酒單分享' }] },
@@ -121,6 +120,5 @@ const menu = [
 .loginbutton{
   margin-left: auto;
 }
-
 
 </style>
