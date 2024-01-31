@@ -1,14 +1,32 @@
 <template>
+  <!-- 手機板側攔 -->
+  <VNavigationDrawer v-model="drawer" temporary location="left" v-if="isMobile">
+  <VList nav>
+    <template v-for="(item) in menu" :key="item.to">
+      <VListItem :to="item.to">
+        <!-- <template #prepend>
+          <VIcon></VIcon>
+        </template> -->
+        <VListItemTitle>{{ item.text }}</VListItemTitle>
+      </VListItem>
+    </template>
+    <VListItem  v-for="item in navItems" :key="item.to" :to="item.to" :prepend-icon="item.icon">
+      <VListItemTitle>{{ item.text }}</VListItemTitle>
+    </VListItem>
+  </VList>
+  </VNavigationDrawer>
+
   <VAppBar color="rgba(0,0,0,0.9)" :elevation="3">
     <VContainer class="fullcontainer" fluid>
       <VBtn to="/" :active="false">
         <VAppBarTitle class="bartitle">醉後希望</VAppBarTitle>
       </VBtn>
+      <!-- 手機板導覽 -->
       <template v-if="isMobile">
-
+        <VAppBarNavIcon @click="drawer = true"></VAppBarNavIcon>
       </template>
       <!-- 下拉選單 -->
-      <div>
+      <div v-else>
         <v-menu v-for="(item) in menu" :key="item.to" class="menu" open-on-hover>
           <template v-slot:activator="{ props }">
             <v-btn
@@ -32,8 +50,8 @@
       </v-menu>
     </div>
     <!--  登入鍵 --->
-    <div>
-      <VBtn v-for="item in navItems" :key="item.to" :to="item.to" :prepend-icon="item.icon"  class="buttonstyle">
+    <div v-if="!isMobile">
+      <VBtn v-for="item in navItems" :key="item.to" :prepend-icon="item.icon"  class="buttonstyle">
         {{ item.text }}
         <v-dialog
         v-model="dialog"
@@ -78,7 +96,9 @@ import Login from '../components/UserLogin.vue'
 const { mobile } = useDisplay()
 const isMobile = computed(() => mobile.value)
 
-const tab = ref(null)
+const drawer = ref(false)
+
+const tab = ref('one')
 
 const dialog = ref(false)
 
@@ -98,11 +118,15 @@ const menu = [
 
 <style scoped>
 
+.v-list-item-title{
+  font-size: 1rem;
+}
+
 .fullcontainer{
   display: flex;
   align-items: center;
   color: white;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .bartitle{

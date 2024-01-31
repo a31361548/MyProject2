@@ -23,6 +23,14 @@ const routes = [
         }
       },
       {
+        path: 'register',
+        name: 'Register',
+        component: () => import('@/views/RegisterView.vue'),
+        meta: {
+          title: '人類醉後的希望 | 註冊'
+        }
+      },
+      {
         path: 'menu1',
         name: 'Menu1',
         component: () => import('@/views/DrunkView.vue'),
@@ -62,16 +70,16 @@ const routes = [
           title: '人類醉後的希望 | 酒鬼專區'
         }
       }
-    ],
-  },
+    ]
+  }
 ]
 
 const router = createRouter({
   history: createWebHashHistory(process.env.BASE_URL),
-  routes,
+  routes
 })
 
-router.afterEach((to,from)=>{
+router.afterEach((to, from) => {
   document.title = to.meta.title
 })
 

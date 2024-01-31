@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import routeUsers from './routes/users.js'
 import { StatusCodes } from 'http-status-codes'
+import './passport/passport.js'
 
 const app = express()
 
