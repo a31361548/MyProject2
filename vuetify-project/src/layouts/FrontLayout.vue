@@ -4,9 +4,6 @@
   <VList nav>
     <template v-for="(item) in menu" :key="item.to">
       <VListItem :to="item.to">
-        <!-- <template #prepend>
-          <VIcon></VIcon>
-        </template> -->
         <VListItemTitle>{{ item.text }}</VListItemTitle>
       </VListItem>
     </template>
@@ -58,7 +55,7 @@
         activator="parent"
         width="auto"
       >
-        <v-card min-width="500">
+        <v-card min-width="800">
           <v-tabs
             v-model="tab"
             bg-color="primary"
