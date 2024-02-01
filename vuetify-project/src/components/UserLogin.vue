@@ -6,12 +6,17 @@
         <VTextField
         label="帳號"
         minlength="4" maxlength="20" counter
+        prepend-inner-icon="mdi-account"
+        append-icon="none"
         v-model="account.value.value"
         :error-messages="account.errorMessage.value"
         ></VTextField>
         <VTextField
-        label="密碼" type="password"
+        label="密碼" :type="show3 ? 'text' : 'password'"
+        :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+        @click:append="show3 = !show3"
         minlength="4" maxlength="20" counter
+        prepend-inner-icon="mdi-lock"
         v-model="password.value.value"
         :error-messages="password.errorMessage.value"
         ></VTextField>
@@ -28,9 +33,12 @@ import * as yup from 'yup'
 import { api } from '@/plugins/axios'
 import { useRouter } from 'vue-router'
 import { useSnackbar } from 'vuetify-use-dialog'
+import { ref } from 'vue'
 
 const router = useRouter()
 const createSnackbar = useSnackbar()
+
+const show3 = ref(false)
 
 // 定義註冊表單的資料格式
 const schema = yup.object({

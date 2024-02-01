@@ -40,6 +40,16 @@ const schema = new Schema({
       message: '使用者信箱格式錯誤'
     }
   },
+  phone: {
+    type: String,
+    required: [true, '缺少手機號碼'],
+    unique: true,
+    validate: {
+      validator (value) {
+        return validator.isMobilePhone(value, 'zh-TW')
+      }
+    }
+  },
   password: {
     type: String,
     required: [true, '缺少使用者密碼']

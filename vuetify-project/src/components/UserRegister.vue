@@ -1,32 +1,49 @@
 <template>
   <VWindowItem value="two">
    <VRow>
-   <VCol cols="12">
+    <VCol cols="12">
      <VForm :disabled="isSubmitting" @submit.prevent="submit">
        <VTextField
        label="帳號"
        minlength="4" maxlength="20" counter
+       prepend-inner-icon="mdi-account"
+       append-icon="none"
        v-model="account.value.value"
        :error-messages="account.errorMessage.value"
        ></VTextField>
        <VTextField
        label="信箱" type="email"
+       prepend-inner-icon="mdi-email"
+       append-icon="none"
        v-model="email.value.value"
        :error-messages="email.errorMessage.value"
        ></VTextField>
        <VTextField
-       label="密碼" type="password"
+       label="手機號碼"
+       prepend-inner-icon="mdi-phone"
+       append-icon="none"
+       v-model="phone.value.value"
+       :error-messages="phone.errorMessage.value"
+       ></VTextField>
+       <VTextField
+       label="密碼" :type="show2 ? 'text' : 'password'"
+       prepend-inner-icon="mdi-lock"
        minlength="4" maxlength="20" counter
        v-model="password.value.value"
+       :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+       @click:append="show2 = !show2"
        :error-messages="password.errorMessage.value"
        ></VTextField>
        <VTextField
-       label="確認密碼" type="password"
+       label="確認密碼" :type="show1 ? 'text' : 'password'"
+       prepend-inner-icon="mdi-check"
        minlength="4" maxlength="20" counter
        v-model="passwordConfirm.value.value"
+       :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+       @click:append="show1 = !show1"
        :error-messages="passwordConfirm.errorMessage.value"
        ></VTextField>
-       <VBtn type="submit">註冊</VBtn>
+       <VBtn type="submit" color="blue">註冊</VBtn>
      </VForm>
    </VCol>
  </VRow>
@@ -40,9 +57,13 @@ import * as yup from 'yup'
 import { api } from '@/plugins/axios'
 import { useRouter } from 'vue-router'
 import { useSnackbar } from 'vuetify-use-dialog'
+import { ref } from 'vue'
 
 const router = useRouter()
 const createSnackbar = useSnackbar()
+
+const show1 = ref(false)
+const show2 = ref(false)
 
 // 定義註冊表單的資料格式
 const schema = yup.object({
@@ -61,6 +82,13 @@ const schema = yup.object({
         return validator.isEmail(value)
       }
     ),
+  phone: yup
+    .string()
+    .required('手機號碼必填')
+    .test('isMobilePhone', '格式錯誤',
+      (value) => {
+        return validator.isMobilePhone(value, 'zh-TW')
+      }),
   password: yup
     .string()
     .required('密碼為必填欄位')
@@ -83,6 +111,7 @@ const { handleSubmit, isSubmitting } = useForm({
 
 const account = useField('account')
 const email = useField('email')
+const phone = useField('phone')
 const password = useField('password')
 const passwordConfirm = useField('passwordConfirm')
 
@@ -91,7 +120,8 @@ const submit = handleSubmit(async (values) => {
     await api.post('/users', {
       account: values.account,
       email: values.email,
-      password: values.password
+      password: values.password,
+      phone: values.phone
     })
     createSnackbar({
       text: '註冊成功',
