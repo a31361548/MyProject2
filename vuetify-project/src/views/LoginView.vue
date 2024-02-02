@@ -10,14 +10,13 @@
         label="帳號"
         minlength="4" maxlength="20" counter
         prepend-inner-icon="mdi-account"
-        append-icon="none"
         v-model="account.value.value"
         :error-messages="account.errorMessage.value"
         ></VTextField>
         <VTextField
         label="密碼" :type="show4 ? 'text' : 'password'"
-        :append-icon="show4 ? 'mdi-eye' : 'mdi-eye-off'"
-        @click:append="show4 = !show4"
+        :append-inner-icon="show4 ? 'mdi-eye' : 'mdi-eye-off'"
+        @click:append-inner="show4 = !show4"
         minlength="4" maxlength="20" counter
         prepend-inner-icon="mdi-lock"
         v-model="password.value.value"

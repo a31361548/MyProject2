@@ -10,21 +10,18 @@
        label="帳號"
        minlength="4" maxlength="20" counter
        prepend-inner-icon="mdi-account"
-       append-icon="none"
        v-model="account.value.value"
        :error-messages="account.errorMessage.value"
        ></VTextField>
        <VTextField
        label="信箱" type="email"
        prepend-inner-icon="mdi-email"
-       append-icon="none"
        v-model="email.value.value"
        :error-messages="email.errorMessage.value"
        ></VTextField>
        <VTextField
        label="手機號碼"
        prepend-inner-icon="mdi-phone"
-       append-icon="none"
        v-model="phone.value.value"
        :error-messages="phone.errorMessage.value"
        ></VTextField>
@@ -33,8 +30,8 @@
        prepend-inner-icon="mdi-lock"
        minlength="4" maxlength="20" counter
        v-model="password.value.value"
-       :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-       @click:append="show2 = !show2"
+       :append-inner-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+       @click:append-inner="show2 = !show2"
        :error-messages="password.errorMessage.value"
        ></VTextField>
        <VTextField
@@ -42,8 +39,8 @@
        prepend-inner-icon="mdi-check"
        minlength="4" maxlength="20" counter
        v-model="passwordConfirm.value.value"
-       :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-       @click:append="show1 = !show1"
+       :append-icon-inner="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+       @click:append-inner="show1 = !show1"
        :error-messages="passwordConfirm.errorMessage.value"
        ></VTextField>
        <VBtn type="submit" color="blue">註冊</VBtn>

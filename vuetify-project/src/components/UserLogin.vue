@@ -7,20 +7,19 @@
         label="帳號"
         minlength="4" maxlength="20" counter
         prepend-inner-icon="mdi-account"
-        append-icon="none"
         v-model="account.value.value"
         :error-messages="account.errorMessage.value"
         ></VTextField>
         <VTextField
         label="密碼" :type="show3 ? 'text' : 'password'"
-        :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-        @click:append="show3 = !show3"
+        :append-inner-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+        @click:append-inner="show3 = !show3"
         minlength="4" maxlength="20" counter
         prepend-inner-icon="mdi-lock"
         v-model="password.value.value"
         :error-messages="password.errorMessage.value"
         ></VTextField>
-        <VBtn type="submit" color="green">登入</VBtn>
+        <VBtn type="submit" color="orange-darken-4">登入</VBtn>
       </VForm>
     </VCol>
   </VRow>

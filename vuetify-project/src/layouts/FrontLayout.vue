@@ -56,7 +56,7 @@
         width="auto"
       >
         <v-card min-width="800">
-          <v-tabs
+          <v-tabs  fixed-tabs
             v-model="tab"
             bg-color="primary"
           >
@@ -93,11 +93,11 @@ import Login from '../components/UserLogin.vue'
 const { mobile } = useDisplay()
 const isMobile = computed(() => mobile.value)
 
+const dialog = ref(false)
+
 const drawer = ref(false)
 
 const tab = ref('one')
-
-const dialog = ref(false)
 
 const navItems = [
   { to: '/login', text: '登入', icon: 'mdi-login' }
