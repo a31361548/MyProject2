@@ -34,7 +34,7 @@ export const create = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
-    const token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET, { expiresIn: '1 s' })
+    const token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET, { expiresIn: '7 days' })
     req.user.tokens.push(token)
     await req.user.save()
     res.status(StatusCodes.OK).json({
@@ -50,6 +50,65 @@ export const login = async (req, res) => {
     })
   } catch (error) {
     console.log('controllers 登入錯誤')
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: '未知錯誤'
+    })
+  }
+}
+
+// 登出
+export const logout = async (req, res) => {
+  try {
+    req.tokens = req.user.tokens.filter(token => token !== req.token)
+    await req.user.save()
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: ''
+    })
+  } catch (error) {
+    console.log(error)
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: '未知錯誤'
+    })
+  }
+}
+
+// 舊換新
+export const extend = async (req, res) => {
+  try {
+    const idx = req.user.tokens.findIndex(token => token === req.token)
+    const token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET, { expiresIn: '7 days' })
+    req.user.tokens[idx] = token
+    await req.user.save()
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: '',
+      result: token
+    })
+  } catch (error) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: '未知錯誤'
+    })
+  }
+}
+
+// 取得使用者資料
+export const getProfile = (req, res) => {
+  try {
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: '',
+      result: {
+        account: req.user.account,
+        email: req.user.email,
+        role: req.user.role,
+        cart: req.user.cartQuantity
+      }
+    })
+  } catch (error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: '未知錯誤'

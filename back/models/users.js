@@ -69,6 +69,13 @@ const schema = new Schema({
   versionKey: false
 })
 
+schema.virtual('cartQuantity')
+  .get(function () {
+    return this.cart.reduce((total, current) => {
+      return total + current.quantity
+    }, 0)
+  })
+
 schema.pre('save', function (next) {
   const user = this
   if (user.isModified('password')) {
