@@ -43,6 +43,7 @@ export const login = async (req, res) => {
       result: {
         token,
         account: req.user.account,
+        phone: req.user.phone,
         email: req.user.email,
         role: req.user.role,
         cart: req.user.cartQuantity

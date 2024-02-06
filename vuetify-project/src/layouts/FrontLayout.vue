@@ -7,9 +7,12 @@
         <VListItemTitle>{{ item.text }}</VListItemTitle>
       </VListItem>
     </template>
-    <VListItem  v-for="item in navItems" :key="item.to" :to="item.to" :prepend-icon="item.icon">
-      <VListItemTitle>{{ item.text }}</VListItemTitle>
-    </VListItem>
+    <span v-if="!user.isLogin">
+      <VListItem  v-for="item in navItems" :key="item.to" :to="item.to" :prepend-icon="item.icon">
+        <VListItemTitle>{{ item.text }}</VListItemTitle>
+      </VListItem>
+    </span>
+    <VListItem prepend-icon="mdi-logout" v-if="user.isLogin" @click="logout">登出</VListItem>
   </VList>
   </VNavigationDrawer>
 
@@ -48,33 +51,36 @@
     </div>
     <!--  登入鍵 --->
     <div v-if="!isMobile">
-      <VBtn v-for="item in navItems" :key="item.to" :prepend-icon="item.icon"  class="buttonstyle">
-        {{ item.text }}
-        <v-dialog
-        v-model="dialog"
-        activator="parent"
-        width="auto"
-      >
-        <v-card min-width="800">
-          <v-tabs  fixed-tabs
-            v-model="tab"
-            bg-color="primary"
-          >
-            <v-tab value="one">登入</v-tab>
-            <v-tab value="two">註冊</v-tab>
-          </v-tabs>
+      <span v-if="!user.isLogin">
+        <VBtn v-for="item in navItems" :key="item.to" :prepend-icon="item.icon"  class="buttonstyle">
+          {{ item.text }}
+          <v-dialog
+          v-model="dialog"
+          activator="parent"
+          width="auto"
+        >
+          <v-card min-width="800">
+            <v-tabs  fixed-tabs
+              v-model="tab"
+              bg-color="primary"
+            >
+              <v-tab value="one">登入</v-tab>
+              <v-tab value="two">註冊</v-tab>
+            </v-tabs>
 
-          <VCardText>
-            <VWindow v-model="tab">
-          <Register></Register>
-          <Login></Login>
-            </VWindow>
-          </VCardText>
-          <v-card-actions>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-      </VBtn>
+            <VCardText>
+              <VWindow v-model="tab">
+            <Register></Register>
+            <Login></Login>
+              </VWindow>
+            </VCardText>
+            <v-card-actions>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        </VBtn>
+      </span>
+      <VBtn prepend-icon="mdi-logout" v-if="user.isLogin" @click="logout" class="buttonstyle" >登出</VBtn>
     </div>
   </VContainer>
 </VAppBar>
@@ -89,15 +95,22 @@ import { useDisplay } from 'vuetify'
 import { computed, ref } from 'vue'
 import Register from '../components/UserRegister.vue'
 import Login from '../components/UserLogin.vue'
+import { useUserStore } from '@/store/user'
+import { useApi } from '@/composables/axios'
+import { useSnackbar } from 'vuetify-use-dialog'
+import { useRouter } from 'vue-router'
 
 const { mobile } = useDisplay()
 const isMobile = computed(() => mobile.value)
 
 const dialog = ref(false)
-
 const drawer = ref(false)
-
 const tab = ref('one')
+
+const user = useUserStore()
+const { apiAuth } = useApi()
+const router = useRouter()
+const createSnackbar = useSnackbar()
 
 const navItems = [
   { to: '/login', text: '登入', icon: 'mdi-login' }
@@ -111,6 +124,33 @@ const menu = [
   { to: '/menu5', text: '關於我們' }
 ]
 
+const logout = async () => {
+  try {
+    await apiAuth.delete('/users/logout')
+    user.logout()
+    createSnackbar({
+      text: '登出成功',
+      showCloseButton: false,
+      snackbarProps: {
+        timeout: 2000,
+        color: 'green',
+        location: 'bottom'
+      }
+    })
+    router.push('/')
+  } catch (error) {
+    const text = error?.response?.data?.message || '發生錯誤，請稍後再試'
+    createSnackbar({
+      text,
+      showCloseButton: false,
+      snackbarProps: {
+        timeout: 2000,
+        color: 'red',
+        location: 'bottom'
+      }
+    })
+  }
+}
 </script>
 
 <style scoped>

@@ -29,13 +29,16 @@
 <script setup>
 import { useForm, useField } from 'vee-validate'
 import * as yup from 'yup'
-import { api } from '@/plugins/axios'
+import { useApi } from '@/composables/axios'
 import { useRouter } from 'vue-router'
 import { useSnackbar } from 'vuetify-use-dialog'
 import { ref } from 'vue'
+import { useUserStore } from '@/store/user'
 
 const router = useRouter()
 const createSnackbar = useSnackbar()
+const { api } = useApi()
+const user = useUserStore()
 
 const show3 = ref(false)
 
@@ -62,10 +65,11 @@ const password = useField('password')
 
 const submit = handleSubmit(async (values) => {
   try {
-    await api.post('/users/login', {
+    const { data } = await api.post('/users/login', {
       account: values.account,
       password: values.password
     })
+    user.login(data.result)
     createSnackbar({
       text: '登入成功',
       showCloseButton: false,
