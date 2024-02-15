@@ -102,6 +102,36 @@ const routes = [
           login: true,
           admin: true
         }
+      },
+      {
+        path: 'poster',
+        name: 'AdminPoster',
+        component: () => import('@/views/admin/PosterView.vue'),
+        meta: {
+          title: '購物網 | 管理',
+          login: true,
+          admin: true
+        }
+      },
+      {
+        path: 'sellOb',
+        name: 'AdminSell',
+        component: () => import('@/views/admin/SellObView.vue'),
+        meta: {
+          title: '購物網 | 管理',
+          login: true,
+          admin: true
+        }
+      },
+      {
+        path: 'orders',
+        name: 'AdminProducts',
+        component: () => import('@/views/admin/OrdersView.vue'),
+        meta: {
+          title: '購物網 | 訂單管理',
+          login: true,
+          admin: true
+        }
       }
     ]
   }
