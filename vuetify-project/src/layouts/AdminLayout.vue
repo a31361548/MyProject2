@@ -24,7 +24,7 @@ const user = useUserStore()
 
 const navItems = [
   { to: '/admin/poster', text: '貼文管理', icon: 'mdi-note' },
-  { to: '/admin/sellOb', text: '商品管理', icon: 'mdi-list-box' },
+  { to: '/admin/products', text: '商品管理', icon: 'mdi-list-box' },
   { to: '/admin/orders', text: '訂單管理', icon: 'mdi-shopping' },
   { to: '/', text: '回首頁', icon: 'mdi-home' }
 ]

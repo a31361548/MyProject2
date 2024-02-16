@@ -12,6 +12,7 @@
         <VListItemTitle>{{ item.text }}</VListItemTitle>
       </VListItem>
     </span>
+      <VListItem v-if="user.isAdmin" prepend-icon="mdi-cog" color="white" @click="cog">管理</VListItem >
     <VListItem prepend-icon="mdi-logout" v-if="user.isLogin" @click="logout">登出</VListItem>
   </VList>
   </VNavigationDrawer>
@@ -80,6 +81,7 @@
         </v-dialog>
         </VBtn>
       </span>
+      <VBtn v-if="user.isAdmin" prepend-icon="mdi-cog" color="white" class="cog" @click="cog">管理</VBtn>
       <VBtn prepend-icon="mdi-logout" v-if="user.isLogin" @click="logout" class="buttonstyle" >登出</VBtn>
     </div>
   </VContainer>
@@ -116,6 +118,10 @@ const navItems = [
   { to: '/login', text: '登入', icon: 'mdi-login' }
 ]
 
+const cog = () => {
+  router.push('/admin')
+}
+
 const menu = [
   { to: '/menu1', text: '酒鬼專區', list: [{ to: '/', text: '經典調酒' }, { to: '/', text: '超商酒單' }, { to: '/', text: '酒單分享' }] },
   { to: '/menu2', text: '喝酒必備', list: [{ to: '/', text: '酒桌遊戲' }, { to: '/', text: '調酒酒單' }] },
@@ -128,6 +134,7 @@ const logout = async () => {
   try {
     await apiAuth.delete('/users/logout')
     user.logout()
+    dialog.value = false
     createSnackbar({
       text: '登出成功',
       showCloseButton: false,
@@ -180,6 +187,10 @@ const logout = async () => {
 
 .loginbutton{
   margin-left: auto;
+}
+
+.cog{
+  font-size: 1.5rem;
 }
 
 </style>

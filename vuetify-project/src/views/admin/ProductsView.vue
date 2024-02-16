@@ -6,9 +6,44 @@
       </VCol>
       <VDivider></VDivider>
       <VCol cols="12">
-        <VBtn color="green" @click="openDialog">
+        <VBtn color="green" @click="openDialog()">
           新增商品
         </VBtn>
+      </VCol>
+      <VCol cols="12">
+        <VDataTableServer
+        v-model:items-per-page="tableItemsPerPage"
+        v-model:sort-by="tableSortBy"
+        v-model:page="tablePage"
+        :items="tableProducts"
+        :headers="tableHeaders"
+        :loading="tableLoading"
+        :items-length="tableItemsLength"
+        :search="tableSearch"
+        @update:items-per-page="tableLoadItems"
+        @update:sort-by="tableLoadItems"
+        @update:page="tableLoadItems"
+        hover
+        >
+        <template #top>
+          <VTextField
+          label="搜尋"
+            append-icon="mdi-magnify"
+            v-model="tableSearch"
+            @click:append="tableApplySearch"
+            @keydown.enter="tableApplySearch"
+          ></VTextField>
+        </template>
+        <template #[`item.image`]="{ item }">
+          <VImg :src="item.image"></VImg>
+        </template>
+        <template #[`item.sell`]="{ item }">
+          <VIcon icon="mdi-check" v-if="item.sell"></VIcon>
+        </template>
+        <template #[`item.edit`]="{ item }">
+          <VBtn icon="mdi-pencil" variant="text" color="blue" @click="openDialog(item)"></VBtn>
+        </template>
+        </VDataTableServer>
       </VCol>
     </VRow>
   </VContainer>
@@ -77,24 +112,36 @@ import { useSnackbar } from 'vuetify-use-dialog'
 const { apiAuth } = useApi()
 const createSnackbar = useSnackbar()
 
-const dialog = ref(false)
-
-const dialogId = ref('')
 const fileAgent = ref(null)
 
-const openDialog = () => {
-  dialogId.value = ''
+// 表單對話框的開啟狀態
+const dialog = ref(false)
+// 表單對話框正在編輯的商品 ID，空的話代表是新增商品
+const dialogId = ref('')
+// 打開編輯對話框
+const openDialog = (item) => {
+  if (item) {
+    dialogId.value = item._id
+    name.value.value = item.name
+    price.value.value = item.price
+    description.value.value = item.description
+    category.value.value = item.category
+    sell.value.value = item.sell
+  } else {
+    dialogId.value = ''
+  }
   dialog.value = true
 }
-
+// 關閉對話框
 const closeDialog = () => {
   dialog.value = false
   resetForm()
   fileAgent.value.deleteFileRecord()
 }
 
+// 分類
 const categories = ['衣服', '食品', '3C', '遊戲']
-
+// 表單驗證
 const schema = yup.object({
   name: yup
     .string()
@@ -114,7 +161,6 @@ const schema = yup.object({
   sell: yup
     .boolean()
 })
-
 const { handleSubmit, isSubmitting, resetForm } = useForm({
   validationSchema: schema,
   initialValues: {
@@ -164,6 +210,8 @@ const submit = handleSubmit(async (values) => {
         location: 'bottom'
       }
     })
+    closeDialog()
+    tableApplySearch()
   } catch (error) {
     console.log(error)
     const text = error?.response?.data?.message || '發生錯誤，請稍後再試'
@@ -178,4 +226,67 @@ const submit = handleSubmit(async (values) => {
     })
   }
 })
+
+// 表格每頁幾個
+const tableItemsPerPage = ref(10)
+// 表格排序
+const tableSortBy = ref([
+  { key: 'createdAt', order: 'desc' }
+])
+// 表格頁碼
+const tablePage = ref(1)
+// 表格商品資料陣列
+const tableProducts = ref([])
+// 表格欄位設定
+const tableHeaders = [
+  { title: '圖片', align: 'center', sortable: false, key: 'image' },
+  { title: '名稱', align: 'center', sortable: true, key: 'name' },
+  { title: '價格', align: 'center', sortable: true, key: 'price' },
+  // { title: '說明', align: 'center', sortable: true, key: 'description' },
+  { title: '分類', align: 'center', sortable: true, key: 'category' },
+  { title: '上架', align: 'center', sortable: true, key: 'sell' },
+  { title: '編輯', align: 'center', sortable: false, key: 'edit' }
+]
+// 表格載入狀態
+const tableLoading = ref(true)
+// 表格全部資料數
+const tableItemsLength = ref(0)
+// 表格搜尋文字
+const tableSearch = ref('')
+// 表格載入資料
+const tableLoadItems = async () => {
+  tableLoading.value = true
+  try {
+    const { data } = await apiAuth.get('/products/all', {
+      params: {
+        page: tablePage.value,
+        itemsPerPage: tableItemsPerPage.value,
+        sortBy: tableSortBy.value[0]?.key || 'createdAt',
+        sortOrder: tableSortBy.value[0]?.order === 'asc' ? 1 : -1,
+        search: tableSearch.value
+      }
+    })
+    tableProducts.value.splice(0, tableProducts.value.length, ...data.result.data)
+    tableItemsLength.value = data.result.total
+  } catch (error) {
+    console.log(error)
+    const text = error?.response?.data?.message || '發生錯誤，請稍後再試'
+    createSnackbar({
+      text,
+      showCloseButton: false,
+      snackbarProps: {
+        timeout: 2000,
+        color: 'red',
+        location: 'bottom'
+      }
+    })
+  }
+  tableLoading.value = false
+}
+tableLoadItems()
+// 表格套用搜尋
+const tableApplySearch = () => {
+  tablePage.value = 1
+  tableLoadItems()
+}
 </script>

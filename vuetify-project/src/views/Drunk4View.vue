@@ -1,3 +1,3 @@
 <template>
-  <h1>購物車</h1>
+  <h1>安</h1>
 </template>
