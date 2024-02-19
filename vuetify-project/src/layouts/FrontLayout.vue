@@ -12,7 +12,8 @@
         <VListItemTitle>{{ item.text }}</VListItemTitle>
       </VListItem>
     </span>
-      <VListItem v-if="user.isAdmin" prepend-icon="mdi-cog" color="white" @click="cog">管理</VListItem >
+    <VListItem v-if="user.isAdmin" prepend-icon="mdi-cog" color="white" @click="cog">管理</VListItem >
+    <VListItem v-if="user.isLogin" prepend-icon="mdi-pen" @click="information" >個人資料</VListItem>
     <VListItem prepend-icon="mdi-logout" v-if="user.isLogin" @click="logout">登出</VListItem>
   </VList>
   </VNavigationDrawer>
@@ -81,7 +82,8 @@
         </v-dialog>
         </VBtn>
       </span>
-      <VBtn v-if="user.isAdmin" prepend-icon="mdi-cog" color="white" class="cog" @click="cog">管理</VBtn>
+      <VBtn v-if="user.isAdmin" prepend-icon="mdi-cog" color="white"  class="buttonstyle" @click="cog">管理</VBtn>
+      <VBtn v-if="user.isLogin" prepend-icon="mdi-pen" class="buttonstyle" @click="information" >個人資料</VBtn>
       <VBtn prepend-icon="mdi-logout" v-if="user.isLogin" @click="logout" class="buttonstyle" >登出</VBtn>
     </div>
   </VContainer>
@@ -120,6 +122,11 @@ const navItems = [
 
 const cog = () => {
   router.push('/admin')
+}
+
+const information = () => {
+  console.log('information method called')
+  router.push('/self')
 }
 
 const menu = [
@@ -187,10 +194,6 @@ const logout = async () => {
 
 .loginbutton{
   margin-left: auto;
-}
-
-.cog{
-  font-size: 1.5rem;
 }
 
 </style>

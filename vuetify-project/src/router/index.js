@@ -138,9 +138,45 @@ const routes = [
         name: 'AdminUsers',
         component: () => import('@/views/admin/UsersView.vue'),
         meta: {
-          title: '購物網 | 會員管理',
+          title: '人類醉後的希望 | 會員管理',
           login: true,
           admin: true
+        }
+      }
+    ]
+  },
+  {
+    path: '/self',
+    component: () => import('@/layouts/SelfLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'SelfHome',
+        component: () => import('@/views/self/HomeView.vue'),
+        meta: {
+          title: '人類醉後的希望 | 個人資料',
+          login: true,
+          admin: false
+        }
+      },
+      {
+        path: 'article',
+        name: 'Article',
+        component: () => import('@/views/self/ArticleView.vue'),
+        meta: {
+          title: '人類醉後的希望 | 貼文管理',
+          login: true,
+          admin: false
+        }
+      },
+      {
+        path: 'favorite',
+        name: 'Favorite',
+        component: () => import('@/views/self/FavoriteView.vue'),
+        meta: {
+          title: '人類醉後的希望 | 收藏',
+          login: true,
+          admin: false
         }
       }
     ]
