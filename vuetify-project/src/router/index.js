@@ -132,6 +132,16 @@ const routes = [
           login: true,
           admin: true
         }
+      },
+      {
+        path: 'users',
+        name: 'AdminUsers',
+        component: () => import('@/views/admin/UsersView.vue'),
+        meta: {
+          title: '購物網 | 會員管理',
+          login: true,
+          admin: true
+        }
       }
     ]
   }

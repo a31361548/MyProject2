@@ -26,6 +26,7 @@ const navItems = [
   { to: '/admin/poster', text: '貼文管理', icon: 'mdi-note' },
   { to: '/admin/products', text: '商品管理', icon: 'mdi-list-box' },
   { to: '/admin/orders', text: '訂單管理', icon: 'mdi-shopping' },
+  { to: '/admin/users', text: '會員管理', icon: 'mdi-account' },
   { to: '/', text: '回首頁', icon: 'mdi-home' }
 ]
 

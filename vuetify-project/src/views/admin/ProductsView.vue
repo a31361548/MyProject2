@@ -43,6 +43,9 @@
         <template #[`item.edit`]="{ item }">
           <VBtn icon="mdi-pencil" variant="text" color="blue" @click="openDialog(item)"></VBtn>
         </template>
+        <template #[`item.delete`]="{ item }">
+          <VBtn icon="mdi-delete" variant="text" color="red" @click="deleteItem(item)"></VBtn>
+        </template>
         </VDataTableServer>
       </VCol>
     </VRow>
@@ -137,6 +140,34 @@ const closeDialog = () => {
   dialog.value = false
   resetForm()
   fileAgent.value.deleteFileRecord()
+}
+
+const deleteItem = async (item) => {
+  try {
+    await apiAuth.delete('/products/' + item._id)
+    createSnackbar({
+      text: '刪除成功',
+      showCloseButton: false,
+      snackbarProps: {
+        timeout: 2000,
+        color: 'green',
+        location: 'bottom'
+      }
+    })
+    tableLoadItems()
+  } catch (error) {
+    console.log(error)
+    const text = error?.response?.data?.message || '發生錯誤，請稍後再試'
+    createSnackbar({
+      text,
+      showCloseButton: false,
+      snackbarProps: {
+        timeout: 2000,
+        color: 'red',
+        location: 'bottom'
+      }
+    })
+  }
 }
 
 // 分類
@@ -245,7 +276,8 @@ const tableHeaders = [
   // { title: '說明', align: 'center', sortable: true, key: 'description' },
   { title: '分類', align: 'center', sortable: true, key: 'category' },
   { title: '上架', align: 'center', sortable: true, key: 'sell' },
-  { title: '編輯', align: 'center', sortable: false, key: 'edit' }
+  { title: '編輯', align: 'center', sortable: false, key: 'edit' },
+  { title: '刪除', align: 'center', sortable: false, key: 'delete' }
 ]
 // 表格載入狀態
 const tableLoading = ref(true)
