@@ -6,6 +6,9 @@
     <v-divider></v-divider>
     <v-col cols="12">
       <v-data-table :items="cart" :headers="headers">
+        <template v-slot:[`item.product.image`]="{ item }">
+          <img :src="item.product.image" height="50px" />
+        </template>
         <template v-slot:[`item.product.name`]="{ item }">
           <span v-if="item.product.sell">{{ item.product.name }}</span>
           <span class="text-red text-decoration-line-through" v-else>{{ item.product.name }} (已下架)</span>
@@ -40,6 +43,7 @@ const router = useRouter()
 
 const cart = ref([])
 const headers = [
+  { title: '商品圖片', key: 'product.image' },
   { title: '商品名稱', key: 'product.name' },
   { title: '單價', key: 'product.price' },
   { title: '數量', key: 'quantity' },
@@ -119,11 +123,10 @@ const checkout = async () => {
       showCloseButton: false,
       snackbarProps: {
         timeout: 2000,
-        color: 'black',
+        color: 'blue',
         location: 'bottom'
       }
     })
-    router.push('/orders')
   }
   isSubmitting.value = false
 }
@@ -146,3 +149,8 @@ onMounted(async () => {
   }
 })
 </script>
+<style scoped>
+::v-deep .v-data-table_td {
+  padding: 0;
+}
+</style>

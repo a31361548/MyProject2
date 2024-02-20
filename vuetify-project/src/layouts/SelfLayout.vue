@@ -1,20 +1,29 @@
 <template>
-  <VNavigationDrawer permanent>
-   <VList>
-     <VListItem :prepend-avatar :title="user.account">
-     </VListItem>
-   </VList>
-   <VList>
-     <VListItem
-     v-for="item in navItems" :key="item.to"
-     :to="item.to" :title="item.text" :prepend-icon="item.icon"
-     ></VListItem>
-   </VList>
-  </VNavigationDrawer>
- <VMain>
-   <RouterView></RouterView>
- </VMain>
- </template>
+    <v-layout>
+      <v-navigation-drawer expand-on-hover rail>
+        <v-list>
+          <v-list-item :prepend-avatar="prependAvatar" :title="user.account" :subtitle="user.email" to="/self"></v-list-item>
+        </v-list>
+
+        <v-divider></v-divider>
+
+        <v-list density="compact" nav>
+          <v-list-item
+            v-for="item in navItems"
+            :key="item.to"
+            :to="item.to"
+            :title="item.text"
+            :prepend-icon="item.icon"
+            :value="item.to"
+          ></v-list-item>
+        </v-list>
+      </v-navigation-drawer>
+
+      <v-main>
+        <RouterView></RouterView>
+      </v-main>
+    </v-layout>
+</template>
 
 <script setup>
 import { useUserStore } from '@/store/user'
