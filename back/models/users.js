@@ -53,6 +53,20 @@ const schema = new Schema({
   role: {
     type: Number,
     default: UserRole.USER
+  },
+  avatar: {
+    type: String,
+    // 預設值 default
+    // default: 'aaaaaaa',
+    // default 可以寫成 function，要用 this 所以不能用箭頭函式
+    default () {
+      // this.email 指的是同一筆資料 email 欄位的值
+      return `https://source.boringavatars.com/beam/120/${this.account}?colors=4EB3DE,8DE0A6,FCF09F,F27C7C,DE528C`
+      /*
+      自動產生大頭貼的網站 20231228 00:16:09
+      https://boringavatars.com/
+      */
+    }
   }
 }, {
   timestamps: true,

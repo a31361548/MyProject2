@@ -1,6 +1,5 @@
 <template>
-    <v-layout>
-      <v-navigation-drawer expand-on-hover rail>
+      <v-navigation-drawer expand-on-hover rail mobile-breakpoint="xs">
         <v-list>
           <v-list-item :prepend-avatar="prependAvatar" :title="user.account" :subtitle="user.email" to="/self"></v-list-item>
         </v-list>
@@ -22,7 +21,6 @@
       <v-main>
         <RouterView></RouterView>
       </v-main>
-    </v-layout>
 </template>
 
 <script setup>
