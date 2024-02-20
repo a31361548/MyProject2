@@ -1,5 +1,3 @@
-import { send } from 'vite';
-import { onMounted } from 'vue';
 <template>
 <VContainer>
   <VRow>
@@ -13,10 +11,6 @@ import { onMounted } from 'vue';
       </VBtn>
     </VCol>
     <VCol cols="12">
-      <VForm>
-        <div id="editor"></div>
-        <VBtn color="green" @click="sendData">送出</VBtn>
-      </VForm>
     </VCol>
   </VRow>
 </VContainer>
@@ -47,8 +41,7 @@ import { onMounted } from 'vue';
 </VDialog>
 </template>
 <script setup>
-import { ref, onMounted } from 'vue'
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import { ref } from 'vue'
 
 const dialog = ref(false)
 
@@ -59,22 +52,4 @@ const openDialog = () => {
 const closeDialog = () => {
   dialog.value = false
 }
-
-const editor = ref(null) // 用于存储编辑器实例
-
-const sendData = () => {
-  const data = editor.value.getData()
-  console.log(data)
-}
-
-onMounted(() => {
-  ClassicEditor
-    .create(document.querySelector('#editor'))
-    .then(editorInstance => {
-      editor.value = editorInstance
-    })
-    .catch(error => {
-      console.error('Error occurred:', error)
-    })
-})
 </script>

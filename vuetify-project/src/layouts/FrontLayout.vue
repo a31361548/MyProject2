@@ -89,7 +89,7 @@
   </VContainer>
 </VAppBar>
 <VMain>
-  <RouterView></RouterView>
+  <RouterView :key="$route.path"></RouterView>
 </VMain>
 <!-- <VFooter color="rgba(0,0,0,0.9)" height="0"></VFooter> -->
 </template>

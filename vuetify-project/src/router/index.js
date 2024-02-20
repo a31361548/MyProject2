@@ -86,6 +86,26 @@ const routes = [
           login: false,
           admin: false
         }
+      },
+      {
+        path: 'products/:id',
+        name: 'Product',
+        component: () => import('@/views/ProductView.vue'),
+        meta: {
+          title: '購物網 | 商品',
+          login: false,
+          admin: false
+        }
+      },
+      {
+        path: 'orders',
+        name: 'Orders',
+        component: () => import('@/views/OrdersView.vue'),
+        meta: {
+          title: '購物網 | 訂單',
+          login: true,
+          admin: false
+        }
       }
     ]
   },

@@ -1,19 +1,15 @@
 <template>
-  <VCard class="product-card">
-    <VImg :src="image" cover height="200"></VImg>
-    <VCardTitle>
-      <RouterLink class="text-primary text-decoration-none" :to="'/products/' + _id">
-        {{ name }}
-      </RouterLink>
-    </VCardTitle>
-    <VCardSubtitle>
-      ${{ price }}
-    </VCardSubtitle>
-    <VCardText style="white-space: pre;"> {{ description }} </VCardText>
-    <VCardActions>
-      <VBtn color="primary" prepend-icon="mdi-cart" @click="addCart">加入購物車</VBtn>
-    </VCardActions>
-  </VCard>
+  <v-card class="product-card">
+    <v-img :src="image" cover height="200"></v-img>
+    <v-card-title>
+      <router-link class="text-primary text-decoration-none" :to="'/products/' + _id">{{ name }}</router-link>
+    </v-card-title>
+    <v-card-subtitle>${{ price }}</v-card-subtitle>
+    <v-card-text style="white-space: pre;">{{ description }}</v-card-text>
+    <v-card-actions>
+      <v-btn color="primary" prepend-icon="mdi-cart" @click="addCart">加入購物車</v-btn>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script setup>
