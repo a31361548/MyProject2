@@ -113,7 +113,6 @@ const checkout = async () => {
       }
     })
   } catch (error) {
-    console.log(error)
     const text = error?.response?.data?.message || '發生錯誤，請稍後再試'
     createSnackbar({
       text,
@@ -124,6 +123,7 @@ const checkout = async () => {
         location: 'bottom'
       }
     })
+    router.push('/orders')
   }
   isSubmitting.value = false
 }

@@ -51,13 +51,14 @@ onMounted(async () => {
     const { data } = await apiAuth.get('/orders')
     orders.value.push(...data.result)
   } catch (error) {
+    console.log(error)
     const text = error?.response?.data?.message || '發生錯誤，請稍後再試'
     createSnackbar({
       text,
       showCloseButton: false,
       snackbarProps: {
         timeout: 2000,
-        color: 'red',
+        color: 'blue',
         location: 'bottom'
       }
     })
