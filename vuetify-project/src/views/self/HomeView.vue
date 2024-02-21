@@ -73,7 +73,7 @@
   </VDialog>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import * as yup from 'yup'
 import { useUserStore } from '@/store/user'
 import { useForm, useField } from 'vee-validate'
@@ -89,11 +89,11 @@ const title = [
   { icon: 'mdi-cellphone', text: '手機' }
 ]
 
-const info = [
+const info = computed(() => [
   { value: user.account },
   { value: user.email },
   { value: user.phone }
-]
+])
 
 const { apiAuth } = useApi()
 const createSnackbar = useSnackbar()
@@ -136,8 +136,6 @@ const fileRecords = ref([])
 const rawFileRecords = ref([])
 
 const submit = handleSubmit(async (values) => {
-  // if (fileRecords.value[0]?.error) return
-  // if (fileRecords.value.length === 0) return
   try {
     // 建立 FormData 物件
     // 使用 fd.append(欄位, 值) 將資料放進去
