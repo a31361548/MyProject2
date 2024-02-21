@@ -130,6 +130,7 @@ const openDialog = (item) => {
     description.value.value = item.description
     category.value.value = item.category
     sell.value.value = item.sell
+    console.log(dialogId.value)
   } else {
     dialogId.value = ''
   }

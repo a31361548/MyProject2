@@ -44,6 +44,7 @@ export const login = async (req, res) => {
       message: '',
       result: {
         token,
+        _id: req.user._id,
         account: req.user.account,
         phone: req.user.phone,
         email: req.user.email,
@@ -106,10 +107,12 @@ export const getProfile = (req, res) => {
       success: true,
       message: '',
       result: {
+        _id: req.user._id,
         account: req.user.account,
         email: req.user.email,
         role: req.user.role,
         cart: req.user.cartQuantity,
+        phone: req.user.phone,
         avatar: req.user.avatar
       }
     })
@@ -218,6 +221,7 @@ export const edit = async (req, res) => {
       message: ''
     })
   } catch (error) {
+    console.log(error)
     if (error.name === 'CastError' || error.message === 'ID') {
       res.status(StatusCodes.BAD_REQUEST).json({
         success: false,

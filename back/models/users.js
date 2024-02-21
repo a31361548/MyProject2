@@ -54,6 +54,16 @@ const schema = new Schema({
     type: Number,
     default: UserRole.USER
   },
+  phone: {
+    type: String,
+    required: [true, '缺少使用者電話'],
+    validate: {
+      validator (value) {
+        return validator.isMobilePhone(value, 'zh-TW')
+      },
+      message: '使用者電話格式錯誤'
+    }
+  },
   avatar: {
     type: String,
     // 預設值 default
