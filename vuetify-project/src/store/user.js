@@ -12,6 +12,7 @@ export const useUserStore = defineStore('user', () => {
   const phone = ref('')
   const avatar = ref('')
   const cart = ref(0)
+  const article = ref([])
   const role = ref(UserRole.USER)
   const _id = ref('')
 
@@ -23,6 +24,7 @@ export const useUserStore = defineStore('user', () => {
     email.value = data.email
     phone.value = data.phone
     cart.value = data.cart
+    article.value = data.article
     role.value = data.role
     avatar.value = data.avatar
     _id.value = data._id
@@ -41,6 +43,7 @@ export const useUserStore = defineStore('user', () => {
 
     try {
       const { data } = await apiAuth.get('/users/me')
+      data.result.article = data.result.article.map(item => item.article)
       login(data.result)
     } catch (error) {
       logout()
@@ -53,6 +56,7 @@ export const useUserStore = defineStore('user', () => {
     email.value = ''
     phone.value = ''
     cart.value = 0
+    article.value = []
     role.value = UserRole.USER
     avatar.value = ''
     _id.value = ''
@@ -64,6 +68,7 @@ export const useUserStore = defineStore('user', () => {
     email,
     phone,
     cart,
+    article,
     role,
     avatar,
     _id,

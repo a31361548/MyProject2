@@ -172,7 +172,7 @@ const deleteItem = async (item) => {
 }
 
 // 分類
-const categories = ['衣服', '食品', '3C', '遊戲']
+const categories = ['食品', '衣服', '3C', '遊戲']
 // 表單驗證
 const schema = yup.object({
   name: yup

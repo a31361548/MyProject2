@@ -106,6 +106,16 @@ const routes = [
           login: true,
           admin: false
         }
+      },
+      {
+        path: 'article/:id',
+        name: 'Article',
+        component: () => import('@/views/ArticleView.vue'),
+        meta: {
+          title: '人類醉後的希望 | 貼文',
+          login: true,
+          admin: false
+        }
       }
     ]
   },

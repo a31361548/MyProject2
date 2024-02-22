@@ -15,6 +15,14 @@ const cartSchema = new Schema({
   }
 })
 
+const articleSchema = new Schema({
+  article: {
+    type: ObjectId,
+    ref: 'articles',
+    required: [true, '缺少文章']
+  }
+})
+
 const schema = new Schema({
   account: {
     type: String,
@@ -49,6 +57,9 @@ const schema = new Schema({
   },
   cart: {
     type: [cartSchema]
+  },
+  article: {
+    type: [articleSchema]
   },
   role: {
     type: Number,

@@ -28,9 +28,6 @@
       <VTextField
       label="圖片"
       ></VTextField>
-      <VTextField
-      label="發布日期"
-      ></VTextField>
     </VCardText>
     <VCardActions>
       <VBtn color="blue" @click="closeDialog">取消</VBtn>

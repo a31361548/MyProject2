@@ -1,13 +1,13 @@
 <template>
   <VContainer>
-    <VRow>
+    <VRow style="display: flex; justify-content: center;">
       <VCol cols="12">
-        <h1>個人資料</h1>
+        <h1 class="text-center">個人資料</h1>
       </VCol>
-      <VCard width="500px" style="padding-left: 30px; padding-top: 15px;">
+      <VCard width="800px" style="padding-left: 30px; padding-top: 15px; ">
         <VRow>
           <VCol cols="4">
-            <VImg class="avatar" :src="user.avatar" style="height: 50px; width: 50px;" @click="openDialog()"></VImg>
+            <VImg class="avatar" :src="user.avatar" style="height: 150px; width: 150px;"></VImg>
           </VCol>
           <VCol cols="8" style="display: flex; justify-content: end;">
             <VIcon color="primary" size="40px" style="margin-right: 20px;" @click="openEditDialog">mdi-pencil</VIcon>

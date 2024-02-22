@@ -142,7 +142,6 @@ const logout = async () => {
   try {
     await apiAuth.delete('/users/logout')
     user.logout()
-    dialog.value = false
     createSnackbar({
       text: '登出成功',
       showCloseButton: false,
