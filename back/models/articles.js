@@ -1,13 +1,14 @@
 import { Schema, model, ObjectId } from 'mongoose'
 // 等同於商品
 const articleSchema = new Schema({
+  user: {
+    type: ObjectId,
+    ref: 'users',
+    required: [true, '缺少使用者']
+  },
   title: {
     type: String,
     required: [true, '缺少標題']
-  },
-  author: {
-    type: ObjectId,
-    required: [true, '缺少作者']
   },
   image: {
     type: String,

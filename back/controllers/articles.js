@@ -1,4 +1,4 @@
-import articles from '../models/articles'
+import articles from '../models/articles.js'
 import { StatusCodes } from 'http-status-codes'
 import validator from 'validator'
 
@@ -39,8 +39,8 @@ export const getAll = async (req, res) => {
     const data = await articles
       .find({
         $or: [
-          { name: regex },
-          { description: regex }
+          { title: regex },
+          { content: regex }
         ]
       })
       // const text = 'a'
@@ -84,8 +84,8 @@ export const get = async (req, res) => {
       .find({
         sell: true,
         $or: [
-          { name: regex },
-          { description: regex }
+          { title: regex },
+          { content: regex }
         ]
       })
       // const text = 'a'

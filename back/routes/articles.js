@@ -6,12 +6,12 @@ import admin from '../middlewares/admin.js'
 
 const router = Router()
 
-router.post('/', auth.jwt, admin, upload, create)
+router.post('/', auth.jwt, upload, create)
 router.get('/all', auth.jwt, admin, getAll)
-router.patch('/:id', auth.jwt, admin, upload, edit)
+router.patch('/:id', auth.jwt, upload, edit)
 router.get('/', get)
 router.get('/:id', getId)
 
-router.delete('/:id', auth.jwt, admin, remove)
+router.delete('/:id', auth.jwt, remove)
 
 export default router
