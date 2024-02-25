@@ -55,6 +55,7 @@
   <VCard>
     <VCardTitle>{{ '新增文章' }}</VCardTitle>
     <VCardText>
+      <VCardTitle>{{ user.account }}</VCardTitle>
       <VTextField
       label="標題"
       v-model="title.value.value"
@@ -101,8 +102,10 @@ import { ref } from 'vue'
 import * as yup from 'yup'
 import { useForm, useField } from 'vee-validate'
 import { useApi } from '@/composables/axios'
+import { useUserStore } from '@/store/user'
 import { useSnackbar } from 'vuetify-use-dialog'
 
+const user = useUserStore()
 const { apiAuth } = useApi()
 const createSnackbar = useSnackbar()
 
@@ -209,6 +212,7 @@ const submit = handleSubmit(async (values) => {
     }
 
     if (dialogId.value === '') {
+      console.log('新增')
       await apiAuth.post('/articles', fd)
     } else {
       await apiAuth.patch('/articles/' + dialogId.value, fd)
@@ -254,7 +258,6 @@ const tableArticles = ref([])
 const tableHeaders = [
   { title: '圖片', align: 'center', sortable: false, key: 'image' },
   { title: '標題', align: 'center', sortable: true, key: 'title' },
-  // { title: '說明', align: 'center', sortable: true, key: 'description' },
   { title: '分類', align: 'center', sortable: true, key: 'type' },
   { title: '新增時間', align: 'center', sortable: true, key: 'createdAt' },
   { title: '貼文', align: 'center', sortable: true, key: 'post' },
@@ -271,7 +274,7 @@ const tableSearch = ref('')
 const tableLoadItems = async () => {
   tableLoading.value = true
   try {
-    const { data } = await apiAuth.get('/articles/all', {
+    const { data } = await apiAuth.get('/articles', {
       params: {
         page: tablePage.value,
         itemsPerPage: tableItemsPerPage.value,

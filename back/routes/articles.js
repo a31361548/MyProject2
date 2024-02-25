@@ -2,14 +2,14 @@ import { Router } from 'express'
 import * as auth from '../middlewares/auth.js'
 import { create, getAll, edit, get, getId, remove } from '../controllers/articles.js'
 import upload from '../middlewares/upload.js'
-import admin from '../middlewares/admin.js'
+// import admin from '../middlewares/admin.js'
 
 const router = Router()
 
 router.post('/', auth.jwt, upload, create)
-router.get('/all', auth.jwt, admin, getAll)
+router.get('/all', auth.jwt, getAll)
 router.patch('/:id', auth.jwt, upload, edit)
-router.get('/', get)
+router.get('/', auth.jwt, get)
 router.get('/:id', getId)
 
 router.delete('/:id', auth.jwt, remove)

@@ -5,6 +5,7 @@ import validator from 'validator'
 export const create = async (req, res) => {
   try {
     req.body.image = req.file.path
+    req.body.user = req.user._id
     const result = await articles.create(req.body)
     res.status(StatusCodes.OK).json({
       success: true,
@@ -20,6 +21,7 @@ export const create = async (req, res) => {
         message
       })
     } else {
+      console.log(error + 'artcile error')
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         success: false,
         message: '未知錯誤'
@@ -38,6 +40,7 @@ export const getAll = async (req, res) => {
 
     const data = await articles
       .find({
+        post: true,
         $or: [
           { title: regex },
           { content: regex }
@@ -53,9 +56,10 @@ export const getAll = async (req, res) => {
       // 第 3 頁 = 21 ~ 30 = 跳過 20 筆 = (3 - 1) * 10
       .skip((page - 1) * itemsPerPage)
       .limit(itemsPerPage === -1 ? undefined : itemsPerPage)
+      .populate('user', 'account')
 
     // estimatedDocumentCount() 計算總資料數
-    const total = await articles.estimatedDocumentCount()
+    const total = await articles.countDocuments({ post: true })
     res.status(StatusCodes.OK).json({
       success: true,
       message: '',
@@ -82,7 +86,7 @@ export const get = async (req, res) => {
 
     const data = await articles
       .find({
-        sell: true,
+        user: req.user._id,
         $or: [
           { title: regex },
           { content: regex }
@@ -100,7 +104,7 @@ export const get = async (req, res) => {
       .limit(itemsPerPage === -1 ? undefined : itemsPerPage)
 
     // countDocuments() 依照 () 內篩選計算總資料數
-    const total = await articles.countDocuments({ sell: true })
+    const total = await articles.estimatedDocumentCount()
     res.status(StatusCodes.OK).json({
       success: true,
       message: '',
