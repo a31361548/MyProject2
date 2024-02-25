@@ -37,6 +37,9 @@
         <template #[`item.image`]="{ item }">
           <VImg :src="item.image"></VImg>
         </template>
+        <template #[`item.createdAt`]="{ item }">
+           {{ new Date(item.createdAt).toLocaleString() }}
+          </template>
         <template #[`item.post`]="{ item }">
           <VIcon icon="mdi-check" v-if="item.post"></VIcon>
         </template>

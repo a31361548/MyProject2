@@ -104,7 +104,7 @@ export const get = async (req, res) => {
       .limit(itemsPerPage === -1 ? undefined : itemsPerPage)
 
     // countDocuments() 依照 () 內篩選計算總資料數
-    const total = await articles.estimatedDocumentCount()
+    const total = await articles.estimatedDocumentCount({ user: req.user._id })
     res.status(StatusCodes.OK).json({
       success: true,
       message: '',

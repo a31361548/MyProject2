@@ -32,8 +32,8 @@
           <template #[`item.image`]="{ item }">
             <VImg :src="item.image"></VImg>
           </template>
-          <template #[`item.post`]="{ item }">
-            <VIcon icon="mdi-check" v-if="item.post"></VIcon>
+          <template #[`item.createdAt`]="{ item }">
+           {{ new Date(item.createdAt).toLocaleString() }}
           </template>
           <template #[`item.edit`]="{ item }">
             <VBtn icon="mdi-pencil" variant="text" color="blue" @click="openDialog(item)"></VBtn>
@@ -48,24 +48,26 @@
   <VDialog v-model="dialog" persistent width="500px">
   <VForm :disabled="isSubmitting" @submit.prevent="submit">
     <VCard>
-      <VCardTitle>{{ '新增文章' }}</VCardTitle>
       <VCardText>
-        <VCardTitle>{{ user.account }}</VCardTitle>
+        <VCardTitle>{{ editaccount }}</VCardTitle>
         <VTextField
         label="標題"
         v-model="title.value.value"
         :error-messages="title.errorMessage.value"
+        disabled="true"
         ></VTextField>
         <VTextarea
         label="內文"
         v-model="content.value.value"
         :error-messages="content.errorMessage.value"
+        disabled="true"
         ></VTextarea>
         <VSelect
         label="分類"
         :items="types"
         v-model="type.value.value"
         :error-messages="type.errorMessage.value"
+        disabled="true"
         ></VSelect>
         <VCheckbox
         label="貼文"
@@ -82,6 +84,7 @@
             :max-files="1"
             max-size="1MB"
             ref="fileAgent"
+            disabled="true"
             ></VueFileAgent>
       </VCardText>
       <VCardActions>
@@ -97,10 +100,8 @@ import { ref } from 'vue'
 import * as yup from 'yup'
 import { useForm, useField } from 'vee-validate'
 import { useApi } from '@/composables/axios'
-import { useUserStore } from '@/store/user'
 import { useSnackbar } from 'vuetify-use-dialog'
 
-const user = useUserStore()
 const { apiAuth } = useApi()
 const createSnackbar = useSnackbar()
 
@@ -108,10 +109,12 @@ const fileAgent = ref(null)
 
 const dialog = ref(false)
 const dialogId = ref('')
+const editaccount = ref('')
 
 const openDialog = (item) => {
   if (item) {
     dialogId.value = item._id
+    editaccount.value = item.user.account
     title.value.value = item.title
     content.value.value = item.content
     type.value.value = item.type
