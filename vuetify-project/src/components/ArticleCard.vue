@@ -1,11 +1,11 @@
 <template>
-  <v-card class="product-card">
-    <v-img :src="image" cover height="200"></v-img>
+  <v-card class="article-card">
+    <v-img :src="image" contain  height="200"></v-img>
     <v-card-title>
-      <router-link class="text-primary text-decoration-none" :to="'/products/' + _id">{{ name }}</router-link>
+      <router-link class="text-primary text-decoration-none" :to="'/article/' + _id">{{ title }}</router-link>
     </v-card-title>
-    <v-card-subtitle>${{ price }}</v-card-subtitle>
-    <v-card-text  class="text-overflow">{{ description }}</v-card-text>
+    <v-card-subtitle>{{ userid.account }}</v-card-subtitle>
+    <v-card-text class="text-overflow">{{ content }}</v-card-text>
     <v-card-actions>
       <v-btn color="primary" prepend-icon="mdi-cart" @click="addCart">加入購物車</v-btn>
     </v-card-actions>
@@ -23,7 +23,7 @@ const user = useUserStore()
 const createSnackbar = useSnackbar()
 const router = useRouter()
 
-const props = defineProps(['_id', 'category', 'description', 'image', 'name', 'price', 'sell'])
+const props = defineProps(['userid', 'type', 'content', 'image', 'title', 'post'])
 
 const addCart = async () => {
   if (!user.isLogin) {

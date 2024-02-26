@@ -7,9 +7,10 @@ import upload from '../middlewares/upload.js'
 const router = Router()
 
 router.post('/', auth.jwt, upload, create)
-router.get('/all', auth.jwt, getAll)
+router.get('/all', getAll)
 router.patch('/:id', auth.jwt, upload, edit)
 router.get('/', auth.jwt, get)
+// router.get('/', getPost)
 router.get('/:id', getId)
 
 router.delete('/:id', auth.jwt, remove)

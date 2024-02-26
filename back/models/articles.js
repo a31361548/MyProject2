@@ -1,7 +1,7 @@
 import { Schema, model, ObjectId } from 'mongoose'
 // 等同於商品
 const articleSchema = new Schema({
-  user: {
+  userid: {
     type: ObjectId,
     ref: 'users',
     required: [true, '缺少使用者']

@@ -114,7 +114,7 @@ const editaccount = ref('')
 const openDialog = (item) => {
   if (item) {
     dialogId.value = item._id
-    editaccount.value = item.user.account
+    editaccount.value = item.userid.account
     title.value.value = item.title
     content.value.value = item.content
     type.value.value = item.type
@@ -258,7 +258,7 @@ const tableHeaders = [
   { title: '標題', align: 'center', sortable: true, key: 'title' },
   { title: '分類', align: 'center', sortable: true, key: 'type' },
   { title: '新增時間', align: 'center', sortable: true, key: 'createdAt' },
-  { title: '帳號', align: 'center', key: 'user.account' },
+  { title: '帳號', align: 'center', key: 'userid.account' },
   { title: '編輯', align: 'center', sortable: false, key: 'edit' },
   { title: '刪除', align: 'center', sortable: false, key: 'delete' }
 ]
