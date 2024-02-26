@@ -133,7 +133,7 @@ const information = () => {
 const menu = [
   { to: '/menu1', text: '酒鬼專區', list: [{ to: '/', text: '經典調酒' }, { to: '/', text: '超商酒單' }, { to: '/', text: '酒單分享' }] },
   { to: '/menu2', text: '喝酒必備', list: [{ to: '/', text: '酒桌遊戲' }, { to: '/', text: '調酒酒單' }] },
-  { to: '/menu3', text: '活動專區' },
+  // { to: '/menu3', text: '活動專區' },
   { to: '/menu4', text: '購物車', list: [{ to: '/orders', text: '購買紀錄' }] },
   { to: '/menu5', text: '關於我們' }
 ]

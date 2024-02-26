@@ -1,6 +1,6 @@
 <template>
   <v-card class="product-card">
-    <v-img :src="image" cover height="200"></v-img>
+    <v-img :src="image" contain height="200"></v-img>
     <v-card-title>
       <router-link class="text-primary text-decoration-none" :to="'/products/' + _id">{{ name }}</router-link>
     </v-card-title>

@@ -55,10 +55,12 @@ import { useApi } from '@/composables/axios'
 import { useRouter } from 'vue-router'
 import { useSnackbar } from 'vuetify-use-dialog'
 import { ref } from 'vue'
+import { useUserStore } from '@/store/user'
 
 const router = useRouter()
 const createSnackbar = useSnackbar()
 const { api } = useApi()
+const user = useUserStore()
 
 const show1 = ref(false)
 const show2 = ref(false)
@@ -130,6 +132,11 @@ const submit = handleSubmit(async (values) => {
         location: 'bottom'
       }
     })
+    const { data } = await api.post('/users/login', {
+      account: values.account,
+      password: values.password
+    })
+    user.login(data.result)
     router.push('/')
   } catch (error) {
     console.log(error)
