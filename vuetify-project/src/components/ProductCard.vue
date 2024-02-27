@@ -1,11 +1,15 @@
 <template>
-  <v-card class="product-card">
-    <v-img :src="image" contain height="200"></v-img>
+  <v-card class="product-card rounded-lg">
+    <div class="overflow-hidden">
+      <v-img :src="image" contain height="200" class="img-enlarge"></v-img>
+    </div>
     <v-card-title>
       <router-link class="text-primary text-decoration-none" :to="'/products/' + _id">{{ name }}</router-link>
     </v-card-title>
     <v-card-subtitle>${{ price }}</v-card-subtitle>
-    <v-card-text  class="text-overflow">{{ description }}</v-card-text>
+    <v-card-text style="white-space: pre;">
+     <div  class="text-overflow">{{ description }}</div>
+    </v-card-text>
     <v-card-actions>
       <v-btn color="primary" prepend-icon="mdi-cart" @click="addCart">加入購物車</v-btn>
     </v-card-actions>
@@ -66,8 +70,20 @@ const addCart = async () => {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: pre-wrap;
-  line-height: 1.2em;
-  max-height: 3.6em;
+  /* line-height: 1.2em;
+  max-height: 3.6em; */
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+.img-enlarge{
+  overflow:hidden;
+  transform:scale(1,1);
+  transition: 1s ease-out;
+}
+
+.img-enlarge:hover {
+  transform: scale(1.2, 1.2);
 }
 </style>

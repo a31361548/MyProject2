@@ -121,53 +121,6 @@ export const get = async (req, res) => {
   }
 }
 
-// 首頁取得全部上架文章
-export const getPost = async (req, res) => {
-  try {
-    const sortBy = req.query.sortBy || 'createdAt'
-    const sortOrder = parseInt(req.query.sortOrder) || -1
-    const itemsPerPage = parseInt(req.query.itemsPerPage) || 20
-    const page = parseInt(req.query.page) || 1
-    const regex = new RegExp(req.query.search || '', 'i')
-
-    const data = await articles
-      .find({
-        post: true,
-        $or: [
-          { title: regex },
-          { content: regex }
-        ]
-      })
-      // const text = 'a'
-      // const obj = { [text]: 1 }
-      // obj.a = 1
-      .sort({ [sortBy]: sortOrder })
-      // 如果一頁 10 筆
-      // 第 1 頁 = 0 ~ 10 = 跳過 0 筆 = (1 - 1) * 10
-      // 第 2 頁 = 11 ~ 20 = 跳過 10 筆 = (2 - 1) * 10
-      // 第 3 頁 = 21 ~ 30 = 跳過 20 筆 = (3 - 1) * 10
-      .skip((page - 1) * itemsPerPage)
-      .limit(itemsPerPage === -1 ? undefined : itemsPerPage)
-      .populate('user', 'account')
-
-    // estimatedDocumentCount() 計算總資料數
-    const total = await articles.countDocuments({ post: true })
-    res.status(StatusCodes.OK).json({
-      success: true,
-      message: '',
-      result: {
-        data, total
-      }
-    })
-  } catch (error) {
-    console.log(error)
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      success: false,
-      message: '未知錯誤'
-    })
-  }
-}
-
 export const getId = async (req, res) => {
   try {
     if (!validator.isMongoId(req.params.id)) throw new Error('ID')

@@ -1,19 +1,16 @@
 <template>
-  <v-carousel
-    cycle
-    height="50vh"
-    hide-delimiter-background
-    show-arrows="hover"
-  >
-    <v-carousel-item
-    v-for="product in products" :key="product._id"
-    >
-      <Article v-bind="product"></Article>
-    </v-carousel-item>
-  </v-carousel>
-  <VRow>
+  <div class="swiper mySwiper" style="height: 60vh;">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide text-center" v-for="product in products" :key="product._id">
+        <img :src="product.image" style="height: 70vh; width: 100%; height: 100%; object-fit: contain;" />
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+  <VContainer>
+    <VRow>
     <VCol cols="12">
-      <h1>微醺小物</h1>
+      <h1 class="text-center">微醺小物</h1>
     </VCol>
     <VDivider></VDivider>
     <VCol cols="12" md="6" lg="3" v-for="product in products" :key="product._id">
@@ -22,22 +19,25 @@
   </VRow>
   <VRow>
     <VCol cols="12">
-      <h1>最新文章</h1>
+      <h1 class="text-center">最新文章</h1>
     </VCol>
     <VDivider></VDivider>
     <VCol cols="12" md="6" lg="3" v-for="article in articles" :key="article._id">
       <ArticleCard v-bind="article"></ArticleCard>
     </VCol>
   </VRow>
+  </VContainer>
+
 </template>
 <script setup>
 import { ref, onMounted, nextTick } from 'vue'
 import { useApi } from '@/composables/axios'
 import { useSnackbar } from 'vuetify-use-dialog'
-import Article from '@/components/ArticlePost.vue'
 import ArticleCard from '@/components/ArticleCard.vue'
 import ProductCard from '@/components/ProductCard.vue'
 import gsap from 'gsap'
+import Swiper from 'swiper/bundle'
+import 'swiper/css/bundle'
 
 const { api } = useApi()
 const createSnackbar = useSnackbar()
@@ -91,4 +91,40 @@ onMounted(async () => {
     })
   }
 })
+
+onMounted(() => {
+  const swiper = new Swiper('.mySwiper', {
+    effect: 'coverflow',
+    grabCursor: true,
+    centeredSlides: true,
+    loop: true,
+    slidesPerView: 'auto',
+    autoplay: {
+      delay: 4000,
+      disableOnInteraction: false
+    },
+    coverflowEffect: {
+      rotate: 50,
+      stretch: 0,
+      depth: 100,
+      modifier: 1,
+      slideShadows: true
+    },
+    breakpoints: {
+      640: {
+        slidesPerView: 1,
+        spaceBetween: 20
+      },
+      768: {
+        slidesPerView: 1,
+        spaceBetween: 40
+      },
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 50
+      }
+    }
+  })
+})
+
 </script>
