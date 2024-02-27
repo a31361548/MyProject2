@@ -90,9 +90,11 @@
   </VContainer>
 </VAppBar>
 <VMain>
-  <RouterView :key="$route.path"></RouterView>
+  <RouterView :key="$route.path">
+  </RouterView>
 </VMain>
-<!-- <VFooter color="rgba(0,0,0,0.9)" height="0"></VFooter> -->
+<VFooter height="30vh">
+</VFooter>
 </template>
 
 <script setup>
@@ -107,6 +109,8 @@ import { useRouter } from 'vue-router'
 
 const { mobile } = useDisplay()
 const isMobile = computed(() => mobile.value)
+
+// const imageUrl = computed(() => new URL('@/assets/wine-cellar.jpg', import.meta.url).href)
 
 const dialog = ref(false)
 const drawer = ref(false)

@@ -1,5 +1,5 @@
 <template>
-  <div class="swiper mySwiper" style="height: 60vh;">
+  <div class="swiper mySwiper" style="height: 75vh;">
     <div class="swiper-wrapper">
       <div class="swiper-slide text-center" v-for="product in products" :key="product._id">
         <img :src="product.image" style="height: 70vh; width: 100%; height: 100%; object-fit: contain;" />
@@ -7,7 +7,7 @@
     </div>
     <div class="swiper-pagination"></div>
   </div>
-  <VContainer>
+  <VContainer style="width: 95%;">
     <VRow>
     <VCol cols="12">
       <h1 class="text-center">微醺小物</h1>
