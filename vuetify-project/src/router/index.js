@@ -39,7 +39,7 @@ const routes = [
       },
       {
         path: 'menu1',
-        name: 'Menu1',
+        name: 'Drunk',
         component: () => import('@/views/DrunkView.vue'),
         meta: {
           title: '人類醉後的希望 | 酒鬼專區',
@@ -49,7 +49,7 @@ const routes = [
       },
       {
         path: 'menu2',
-        name: 'Menu2',
+        name: 'Drunk2',
         component: () => import('@/views/Drunk2View.vue'),
         meta: {
           title: '人類醉後的希望 | 喝酒必備',
@@ -59,7 +59,7 @@ const routes = [
       },
       {
         path: 'menu3',
-        name: 'Menu3',
+        name: 'Drunk3',
         component: () => import('@/views/Drunk3View.vue'),
         meta: {
           title: '人類醉後的希望 | 活動專區',
@@ -69,7 +69,7 @@ const routes = [
       },
       {
         path: 'menu4',
-        name: 'Menu4',
+        name: 'Drunk4',
         component: () => import('@/views/Drunk4View.vue'),
         meta: {
           title: '人類醉後的希望 | 購物車',
@@ -79,7 +79,7 @@ const routes = [
       },
       {
         path: 'menu5',
-        name: 'Menu5',
+        name: 'Drunk5',
         component: () => import('@/views/Drunk5View.vue'),
         meta: {
           title: '人類醉後的希望 | 關於我們',
@@ -92,7 +92,7 @@ const routes = [
         name: 'Product',
         component: () => import('@/views/ProductView.vue'),
         meta: {
-          title: '購物網 | 商品',
+          title: '人類醉後的希望 | 商品',
           login: false,
           admin: false
         }
@@ -102,18 +102,18 @@ const routes = [
         name: 'Orders',
         component: () => import('@/views/OrdersView.vue'),
         meta: {
-          title: '購物網 | 訂單',
+          title: '人類醉後的希望 | 訂單',
           login: true,
           admin: false
         }
       },
       {
-        path: 'article/:id',
+        path: 'articles/:id',
         name: 'Article',
         component: () => import('@/views/ArticleView.vue'),
         meta: {
           title: '人類醉後的希望 | 貼文',
-          login: true,
+          login: false,
           admin: false
         }
       }
@@ -128,7 +128,7 @@ const routes = [
         name: 'AdminHome',
         component: () => import('@/views/admin/HomeView.vue'),
         meta: {
-          title: '購物網 | 管理',
+          title: '人類醉後的希望 | 管理',
           login: true,
           admin: true
         }
@@ -138,7 +138,7 @@ const routes = [
         name: 'AdminPoster',
         component: () => import('@/views/admin/PosterView.vue'),
         meta: {
-          title: '購物網 | 管理',
+          title: '人類醉後的希望 | 管理',
           login: true,
           admin: true
         }
@@ -148,7 +148,7 @@ const routes = [
         name: 'AdminProducts',
         component: () => import('@/views/admin/ProductsView.vue'),
         meta: {
-          title: '購物網 | 商品管理',
+          title: '人類醉後的希望 | 商品管理',
           login: true,
           admin: true
         }
@@ -158,7 +158,7 @@ const routes = [
         name: 'AdminOrders',
         component: () => import('@/views/admin/OrdersView.vue'),
         meta: {
-          title: '購物網 | 訂單管理',
+          title: '人類醉後的希望 | 訂單管理',
           login: true,
           admin: true
         }

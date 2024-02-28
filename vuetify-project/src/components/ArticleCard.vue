@@ -1,10 +1,11 @@
 <template>
+  <h1>123</h1>
   <v-card class="article-card rounded-lg">
     <div class="overflow-hidden">
       <v-img :src="image" contain  height="200" class="img-enlarge"></v-img>
     </div>
     <v-card-title>
-      <router-link class="text-primary text-decoration-none" :to="'/article/' + _id">{{ title }}</router-link>
+      <router-link class="text-primary text-decoration-none" :to="'/articles/' + _id">{{ title }}</router-link>
     </v-card-title>
     <v-card-subtitle>{{ userid.account }}</v-card-subtitle>
    <v-card-text style="white-space: pre;">
@@ -15,7 +16,7 @@
 
 <script setup>
 
-const props = defineProps(['userid', 'type', 'content', 'image', 'title', 'post'])
+const props = defineProps(['_id', 'userid', 'type', 'content', 'image', 'title', 'post'])
 
 </script>
 <style scoped>

@@ -73,6 +73,7 @@ onMounted(async () => {
       selectedArticles.push(allArticles[randomIndex])
       // allArticles.splice(randomIndex, 1) // remove the selected article from allArticles
     }
+    console.log(articles.value)
     articles.value.push(...articleData.result.data)
     await nextTick()
     gsap
