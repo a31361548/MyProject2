@@ -90,7 +90,7 @@
   </VContainer>
 </VAppBar>
 <VMain
-style="min-height: 200vh;"
+style="min-height: 150vh;"
 class="bg"
 >
   <RouterView :key="$route.path" >
@@ -156,8 +156,8 @@ const menu = [
   { to: '/menu1', text: '酒鬼專區', list: [{ to: '/', text: '經典調酒' }, { to: '/', text: '超商酒單' }, { to: '/', text: '酒單分享' }] },
   { to: '/menu2', text: '喝酒必備', list: [{ to: '/', text: '酒桌遊戲' }, { to: '/', text: '調酒酒單' }] },
   // { to: '/menu3', text: '活動專區' },
-  { to: '/menu4', text: '購物車', list: [{ to: '/orders', text: '購買紀錄' }] },
-  { to: '/menu5', text: '關於我們' }
+  { to: '/menu4', text: '購物車', list: [{ to: '/orders', text: '購買紀錄' }] }
+  // { to: '/menu5', text: '關於我們' }
 ]
 
 const logout = async () => {
@@ -219,7 +219,7 @@ const logout = async () => {
 }
 .bg{
   background-size: cover;
-  background-image: url('https://images.unsplash.com/photo-1554598286-ed7bfd1dedca?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8d2luZSUyMGNlbGxhcnxlbnwwfHwwfHx8MA%3D%3D')
+  background-image: url('https://images.unsplash.com/photo-1611575189074-9dfbbceb258a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2luZSUyMGNlbGxhcnxlbnwwfHwwfHx8MA%3D%3D')
 }
 
 </style>

@@ -1,8 +1,9 @@
 <template>
   <div class="swiper mySwiper" style="height: 75vh;">
-    <div class="swiper-wrapper">
+    <div class="swiper-wrapper"
+    >
       <div class="swiper-slide text-center" v-for="product in products" :key="product._id">
-        <img :src="product.image" style="height: 70vh; width: 100%; height: 100%; object-fit: contain;" />
+        <img :src="product.image" style="height: 70vh; width: 100%; height: 100%; object-fit: contain;"/>
       </div>
     </div>
     <div class="swiper-pagination"></div>

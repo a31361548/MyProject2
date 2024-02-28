@@ -2,7 +2,7 @@
   <VContainer>
     <VRow>
       <VCol cols="12">
-        <h1>微醺小物</h1>
+        <h1 style="color: white;">微醺小物</h1>
       </VCol>
       <VDivider></VDivider>
       <VCol cols="12" md="6" lg="3" v-for="product in products" :key="product._id">

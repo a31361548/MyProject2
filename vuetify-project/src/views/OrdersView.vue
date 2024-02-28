@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-        <h1>訂單</h1>
+        <h1 style="color: white;">訂單</h1>
       </v-col>
       <v-col cols="12">
         <v-data-table :items="orders" :headers="headers">

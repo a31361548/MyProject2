@@ -30,9 +30,9 @@
         <template #[`item.avatar`]="{ item }">
             <VImg :src="item.avatar" height="50px" contain></VImg>
         </template>
-        <template #[`item.remove`]="{ item }">
+        <!-- <template #[`item.remove`]="{ item }">
           <VBtn icon="mdi-delete" variant="text" color="red" @click="openDialog(item)"></VBtn>
-        </template>
+        </template> -->
       </VDataTableServer>
     </VCol>
   </VContainer>
@@ -61,11 +61,11 @@ const dialog = ref(false)
 
 const dialogId = ref('')
 
-const openDialog = (item) => {
-  dialogId.value = item._id
-  account.value.value = item.account
-  dialog.value = true
-}
+// const openDialog = (item) => {
+//   dialogId.value = item._id
+//   account.value.value = item.account
+//   dialog.value = true
+// }
 
 const account = useField('account')
 
@@ -106,8 +106,8 @@ const tableUsers = ref([])
 const tableHeaders = [
   { title: '頭像', align: 'center', sortable: false, key: 'avatar' },
   { title: '帳號', align: 'center', sortable: true, key: 'account' },
-  { title: '信箱', align: 'center', sortable: true, key: 'email' },
-  { title: '刪除', align: 'center', sortable: false, key: 'remove' }
+  { title: '信箱', align: 'center', sortable: true, key: 'email' }
+  // { title: '刪除', align: 'center', sortable: false, key: 'remove' }
 ]
 //  表格載入狀態
 const tableLoading = ref(true)

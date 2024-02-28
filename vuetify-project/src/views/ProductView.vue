@@ -1,13 +1,11 @@
 <template>
 <v-container>
-  <v-row>
-    <v-col cols="12">
-      <h1>{{ product.name }}</h1>
-    </v-col>
+  <v-row style="background-color: white; margin-top: 1.5rem; border-radius: 36px;">
     <v-col cols="12" md="6">
       <v-img :src="product.image"></v-img>
     </v-col>
     <v-col cols="12" md="6">
+      <h1>{{ product.name }}</h1>
       <p>${{ product.price }}</p>
       <p style="white-space: pre;">{{ product.description }}</p>
       <v-form :disabled="isSubmitting" @submit.prevent="submit">

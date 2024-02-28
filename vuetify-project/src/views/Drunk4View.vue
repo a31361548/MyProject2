@@ -1,10 +1,10 @@
 <template>
   <v-container>
     <v-col cols="12">
-      <h1>購物車</h1>
+      <h1 style="color: white;">購物車</h1>
     </v-col>
     <v-divider></v-divider>
-    <v-col cols="12">
+    <v-col cols="12" >
       <v-data-table :items="cart" :headers="headers">
         <template v-slot:[`item.product.image`]="{ item }">
           <img :src="item.product.image" height="50px" />
@@ -23,7 +23,7 @@
         </template>
       </v-data-table>
     </v-col>
-    <v-col class="text-center" cols="12">
+    <v-col class="text-center" cols="12" style="color: white;">
       <p>總金額: {{ total }}</p>
       <v-btn color="green" :disabled="!canCheckout" :loading="isSubmitting" @click="checkout">結帳</v-btn>
     </v-col>

@@ -1,5 +1,5 @@
 <template>
- <VContainer>
+ <VContainer style="background-color: white; border-radius: 36px; margin-top: 50px;">
   <VCol cols="12">
     <h1>註冊</h1>
     <VDivider></VDivider>

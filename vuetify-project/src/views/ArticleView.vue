@@ -1,15 +1,15 @@
 <template >
   <v-container>
     <v-sheet style="background-color: rgba(255,255,255,0.1); width:75vw ; height:70vh; ">
-      <v-row style="margin: 1rem;">
-        <v-col cols="12" md="6">
-          <v-img :src="article.image"></v-img>
+      <v-row style="margin: 1rem; padding-top: 2rem;">
+        <v-col cols="6">
+          <v-img :src="article.image" ></v-img>
         </v-col>
-        <v-col cols="12" md="6" >
-          <h1 style="color:white">{{ article.title }}</h1>
-          <p style="color:white">{{ article.content }}</p>
-          <p style="white-space: pre; color: white;">{{ article.type }}</p>
-          <p style="color:white">貼文時間: &nbsp;{{ article.time }}</p>
+        <v-col cols="6" style="color: white; font-size: 1.5rem;">
+          <h1>{{ article.title }}</h1>
+          <p>{{ article.content }}</p>
+          <p style="white-space: pre;">類別: &nbsp;{{ article.type }}</p>
+          <p>貼文時間: &nbsp;{{ article.time }}</p>
         </v-col>
       </v-row>
     </v-sheet>
