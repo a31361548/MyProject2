@@ -1,18 +1,18 @@
-<template>
+<template >
   <v-container>
-    <v-row>
-      <v-col cols="12">
-        <h1>{{ article.title }}</h1>
-      </v-col>
-      <v-col cols="12" md="6">
-        <v-img :src="article.image"></v-img>
-      </v-col>
-      <v-col cols="12" md="6">
-        <p>{{ article.content }}</p>
-        <p style="white-space: pre;">{{ article.type }}</p>
-        <p>{{ article.post }}</p>
-      </v-col>
-    </v-row>
+    <v-sheet style="background-color: rgba(255,255,255,0.1); width:75vw ; height:70vh; ">
+      <v-row style="margin: 1rem;">
+        <v-col cols="12" md="6">
+          <v-img :src="article.image"></v-img>
+        </v-col>
+        <v-col cols="12" md="6" >
+          <h1 style="color:white">{{ article.title }}</h1>
+          <p style="color:white">{{ article.content }}</p>
+          <p style="white-space: pre; color: white;">{{ article.type }}</p>
+          <p style="color:white">貼文時間: &nbsp;{{ article.time }}</p>
+        </v-col>
+      </v-row>
+    </v-sheet>
   </v-container>
   </template>
 <script setup>
@@ -27,10 +27,12 @@ const { api } = useApi()
 const createSnackbar = useSnackbar()
 const article = ref({
   _id: '',
+  userid: '',
   title: '',
   content: '',
   image: '',
   type: '',
+  createdAt: '',
   post: true
 })
 
@@ -38,10 +40,12 @@ onMounted(async () => {
   try {
     const { data } = await api.get('/articles/' + route.params.id)
     article.value._id = data.result._id
+    article.value.userid = data.result.userid
     article.value.title = data.result.title
     article.value.content = data.result.content
     article.value.image = data.result.image
     article.value.type = data.result.type
+    article.value.time = new Date(data.result.createdAt).toLocaleString()
     article.value.post = data.result.post
 
     document.title = `人類醉後的希望 | ${article.value.title}`

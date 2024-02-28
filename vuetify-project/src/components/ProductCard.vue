@@ -67,7 +67,7 @@ const addCart = async () => {
 
 .text-overflow {
   display: -webkit-box;
-  -webkit-line-clamp: 1; /* 限制行數為 2 */
+  -webkit-line-clamp: 2; /* 限制行數為 2 */
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;

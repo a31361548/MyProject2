@@ -89,11 +89,29 @@
     </div>
   </VContainer>
 </VAppBar>
-<VMain>
-  <RouterView :key="$route.path">
+<VMain
+style="min-height: 200vh;"
+class="bg"
+>
+  <RouterView :key="$route.path" >
   </RouterView>
 </VMain>
-<VFooter height="30vh">
+<VFooter
+style=
+"
+background-color: rgba(245,203,50,0.9);
+color:white; font-size: 2rem;
+display: flex;
+justify-content: center;
+"
+
+>
+  <div>
+    禁止酒駕 &nbsp;
+    ，
+    未成年請勿飲酒&nbsp;
+  </div>
+  <img src="https://www.kkbar2023.com/images/stop.png" style="size:;">
 </VFooter>
 </template>
 
@@ -198,6 +216,10 @@ const logout = async () => {
 
 .loginbutton{
   margin-left: auto;
+}
+.bg{
+  background-size: cover;
+  background-image: url('https://images.unsplash.com/photo-1554598286-ed7bfd1dedca?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8d2luZSUyMGNlbGxhcnxlbnwwfHwwfHx8MA%3D%3D')
 }
 
 </style>

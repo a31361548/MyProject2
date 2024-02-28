@@ -83,7 +83,7 @@
       <VueFileAgent
           v-model="fileRecords"
           v-model:raw-model-value="rawFileRecords"
-          accept="image/jpg,image/png"
+          accept="image/*"
           deletable
           :error-text="{type: '檔案格式不支援', size: '檔案超過 1MB 大小限制'}"
           help-text="選擇檔案或拖曳到這裡"

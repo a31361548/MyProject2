@@ -1,6 +1,6 @@
 <template>
   <VContainer>
-    <div v-for="(article, index) in articles" :key="index" class="box">
+    <div v-for="(article, index) in articles" :key="index" class="box" @click="hello(article._id)">
           <div>
             <VImg :src="article.image" class="img"></VImg>
           </div>
@@ -17,8 +17,9 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useApi } from '@/composables/axios'
+import router from '@/router'
 
-const props = defineProps(['userid', 'type', 'content', 'image', 'title', 'post'])
+const props = defineProps(['_id', 'userid', 'type', 'content', 'image', 'title', 'post'])
 
 const articles = ref([])
 const { api } = useApi()
@@ -35,6 +36,9 @@ onMounted(async () => {
 
   }
 })
+const hello = (id) => {
+  router.push('/articles/' + id)
+}
 </script>
 <style scoped>
 .img{
@@ -43,6 +47,7 @@ onMounted(async () => {
 }
 .box{
   height: 200px;
+  color:white;
   display:flex;
   flex-direction: row;
   margin-bottom: 35px;

@@ -7,7 +7,7 @@
     </div>
     <div class="swiper-pagination"></div>
   </div>
-  <VContainer style="width: 95%;">
+  <VContainer style="width: 95%; color:white;">
     <VRow>
     <VCol cols="12">
       <h1 class="text-center">微醺小物</h1>
@@ -129,3 +129,6 @@ onMounted(() => {
 })
 
 </script>
+<style scoped>
+
+</style>

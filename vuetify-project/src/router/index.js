@@ -109,10 +109,10 @@ const routes = [
       },
       {
         path: 'articles/:id',
-        name: 'Article',
+        name: 'Articles',
         component: () => import('@/views/ArticleView.vue'),
         meta: {
-          title: '人類醉後的希望 | 貼文',
+          title: '人類醉後的希望 | 酒鬼專區',
           login: false,
           admin: false
         }

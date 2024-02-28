@@ -1,5 +1,4 @@
 <template>
-  <h1>123</h1>
   <v-card class="article-card rounded-lg">
     <div class="overflow-hidden">
       <v-img :src="image" contain  height="200" class="img-enlarge"></v-img>
